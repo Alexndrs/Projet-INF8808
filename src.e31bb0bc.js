@@ -729,11 +729,11 @@ function countCollaborations(movies) {
   return finalizedCollabs;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////////////////////////////////////////////////////
 
 //                      FUNCTIONS THAT ARE NOT USED ANYMORE
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
+/// ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * Gets important movie data associated to each contributor of the top 250 movies on IMDB
@@ -1221,8 +1221,8 @@ function setRadiusScale(data) {
 /**
  * Defines the color scale based on release year.
  *
- * @param data
- * @returns {*}
+ * @param {object} data - The data to be used
+ * @returns {*} The color scale
  */
 function setColorScale(data) {
   var flatData = Object.values(data).flat();
@@ -1364,8 +1364,8 @@ function moveCircles(g, xScale, yScale, transitionDuration) {
 /**
  * Sets up the hover event handler. The tooltip should show on on hover.
  *
- * @param g - The D3 selection of the <g> element to hover over
- * @param {*} tip The tooltip
+ * @param {object} g - The D3 selection of the <g> element to hover over
+ * @param {*} tip - The tooltip
  */
 function setCircleHoverHandler(g, tip) {
   // Select the graph and the bubbles
@@ -3394,27 +3394,27 @@ function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /**
  * Process raw data into matrix format for chord diagram.
- * 
+ *
  * @param {Array} rawData The actor-director collaboration data
  * @param {number} maxEntities Maximum number of entities to include
- * @param {Object} collabs The collabs object containing actor-director and actor-actor collaborations
+ * @param {object} collabs The collabs object containing actor-director and actor-actor collaborations
  * @param {string} [selectedEntity] Optional name of selected entity to ensure connections
- * @returns {Object} Processed data object with matrix, entities and types
+ * @returns {object} Processed data object with matrix, entities and types
  */
 function processData(rawData, maxEntities, collabs) {
   var selectedEntity = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   // Get all actors from rawData
   var actorsFromDirectorData = _toConsumableArray(new Set(rawData.flatMap(function (c) {
-    if (c.connectionType === "actor/director") {
+    if (c.connectionType === 'actor/director') {
       return [c.participant1];
-    } else if (c.connectionType === "actor/actor") {
+    } else if (c.connectionType === 'actor/actor') {
       return [c.participant2, c.participant1];
     }
   })));
 
   // Get all writers from rawData
   var writerFromDirectorData = _toConsumableArray(new Set(rawData.flatMap(function (c) {
-    if (c.connectionType === "writer/director") {
+    if (c.connectionType === 'writer/director') {
       return [c.participant1];
     }
   })));
@@ -3426,25 +3426,25 @@ function processData(rawData, maxEntities, collabs) {
 
   // Get all actor-actor collaborations from overall collabs
   var actorActorCollabs = collabs.filter(function (c) {
-    return c.connectionType === "actor/actor" && actorsFromDirectorData.includes(c.participant1) && actorsFromDirectorData.includes(c.participant2);
+    return c.connectionType === 'actor/actor' && actorsFromDirectorData.includes(c.participant1) && actorsFromDirectorData.includes(c.participant2);
   });
 
   // Calculate counts for actors and directors
-  var actorCounts = {},
-    directorCounts = {},
-    writerCounts = {};
+  var actorCounts = {};
+  var directorCounts = {};
+  var writerCounts = {};
   rawData.forEach(function (c) {
-    if (c.connectionType === "actor/director") {
+    if (c.connectionType === 'actor/director') {
       var actor = c.participant1;
       var director = c.participant2;
       actorCounts[actor] = (actorCounts[actor] || 0) + c.count;
       directorCounts[director] = (directorCounts[director] || 0) + c.count;
-    } else if (c.connectionType === "actor/actor") {
+    } else if (c.connectionType === 'actor/actor') {
       var actor1 = c.participant1;
       var actor2 = c.participant2;
       actorCounts[actor1] = (actorCounts[actor1] || 0) + c.count;
       actorCounts[actor2] = (actorCounts[actor2] || 0) + c.count;
-    } else if (c.connectionType === "writer/director") {
+    } else if (c.connectionType === 'writer/director') {
       var writer = c.participant1;
       var _director = c.participant2;
       writerCounts[writer] = (writerCounts[writer] || 0) + c.count;
@@ -3481,7 +3481,7 @@ function processData(rawData, maxEntities, collabs) {
 
   // Add actor-director connections from rawData
   rawData.forEach(function (c) {
-    if (c.connectionType === "actor/actor") return;
+    if (c.connectionType === 'actor/actor') return;
     var actorOrWriter = c.participant1;
     var director = c.participant2;
     var aIdx = allEntities.indexOf(actorOrWriter);
@@ -3580,9 +3580,9 @@ function processData(rawData, maxEntities, collabs) {
 
 /**
  * Filter data to focus on a specific entity.
- * 
+ *
  * @param {string} entityName The name of the entity to focus on
- * @param {Object} collabs The collaboration data
+ * @param {object} collabs The collaboration data
  * @returns {Array} Filtered collaboration data related to the selected entity
  */
 function filterDataByEntity(entityName, collabs) {
@@ -3632,7 +3632,7 @@ function generateG(svgSelector, margin) {
  * @param {number} height The desired height
  */
 function setCanvasSize(width, height) {
-  d3.select(".collaboration-chord-svg").attr('width', width).attr('height', height);
+  d3.select('.collaboration-chord-svg').attr('width', width).attr('height', height);
 }
 },{}],"../node_modules/d3-array/src/ascending.js":[function(require,module,exports) {
 "use strict";
@@ -34322,7 +34322,7 @@ function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return 
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 /**
  * Sets the color scale for entity types.
- * 
+ *
  * @returns {d3.ScaleOrdinal} The color scale
  */
 function createColorScale() {
@@ -34331,6 +34331,7 @@ function createColorScale() {
 
 /**
  * Create the chord layout object
+ *
  * @returns {d3.ChordLayout} The chord layout
  */
 function createChordScales() {
@@ -34339,6 +34340,7 @@ function createChordScales() {
 
 /**
  * Create the arc generator
+ *
  * @param {number} innerRadius - The inner radius of the arc
  * @param {number} outerRadius - The outer radius of the arc
  * @returns {d3.Arc} The arc generator
@@ -34349,6 +34351,7 @@ function createArcScales(innerRadius, outerRadius) {
 
 /**
  * Create the ribbon generator
+ *
  * @param {number} innerRadius - The radius for the ribbon
  * @returns {d3.Ribbon} The ribbon generator
  */
@@ -34369,20 +34372,20 @@ function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return 
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 /**
  * Creates a tooltip div if it doesn't exist yet.
- * 
+ *
  * @returns {*} The tooltip selection
  */
 function createTooltip() {
-  var tooltip = d3.select(".tooltip");
+  var tooltip = d3.select('.tooltip');
   if (tooltip.empty()) {
-    tooltip = d3.select("body").append("div").attr("class", "tooltip").style("position", "absolute").style("background", "rgba(255, 255, 255, 0.95)").style("border", "1px solid #ddd").style("border-radius", "6px").style("padding", "10px 15px").style("font-size", "16px").style("box-shadow", "0 2px 8px rgba(0,0,0,0.15)").style("pointer-events", "none").style("opacity", 0).style("max-width", "550px").style("transition", "opacity 0.2s");
+    tooltip = d3.select('body').append('div').attr('class', 'tooltip').style('position', 'absolute').style('background', 'rgba(255, 255, 255, 0.95)').style('border', '1px solid #ddd').style('border-radius', '6px').style('padding', '10px 15px').style('font-size', '16px').style('box-shadow', '0 2px 8px rgba(0,0,0,0.15)').style('pointer-events', 'none').style('opacity', 0).style('max-width', '600px').style('transition', 'opacity 0.2s');
   }
   return tooltip;
 }
 
 /**
  * Generate detailed tooltip content for entity hover.
- * 
+ *
  * @param {string} entity The name of the entity
  * @param {string} type The type of the entity ('actor' or 'director')
  * @param {object} data The visualization data
@@ -34409,20 +34412,20 @@ function generateEntityTooltipContent(entity, type, data, index) {
     connections.forEach(function (conn) {
       content += "<div style=\"font-size: 15px; margin: 3px 0; display: flex; justify-content: space-between;\">\n                     <span>".concat(conn.name, " <span style=\"color: ").concat(conn.type === 'actor' ? '#4285F4' : conn.type === 'director' ? '#EA4335' : '#F4B400', "\">(").concat(conn.type === 'actor' ? 'Acteur' : conn.type === 'director' ? 'Réalisateur' : 'Scénariste', ")</span></span>\n                     <span style=\"font-weight: bold; margin-left: 10px;\">").concat(conn.count, "</span>\n                   </div>");
     });
-    content += "</div>";
+    content += '</div>';
   } else {
-    content += "<div style=\"margin-top: 8px; color: #999; font-size: 11px;\">Aucune collaboration directe</div>";
+    content += '<div style="margin-top: 8px; color: #999; font-size: 11px;">Aucune collaboration directe</div>';
   }
   return content;
 }
 
 /**
  * Generate tooltip content for ribbon/connection hover.
- * 
+ *
  * @param {object} data The visualization data
  * @param {object} d The D3 data point for the connection
- * @param {array} collabs The collaboration data
- * @param {array} imdb The IMDB movie data
+ * @param {Array} collabs The collaboration data
+ * @param {Array} imdb The IMDB movie data
  * @returns {string} HTML content for the tooltip
  */
 function generateConnectionTooltipContent(data, d, collabs, imdb) {
@@ -34434,23 +34437,20 @@ function generateConnectionTooltipContent(data, d, collabs, imdb) {
     return c.participant1 === sourceName && c.participant2 === targetName || c.participant1 === targetName && c.participant2 === sourceName;
   });
   if (!collab) {
-    // Fallback if collaboration not found
-    return "\n        <div style=\"margin-bottom: 4px;\">\n          <strong>Collaboration avec:</strong>\n        </div>\n        <div style=\"display: flex; justify-content: space-between; margin-bottom: 4px;\">\n          <span style=\"color: ".concat(sourceType === 'actor' ? '#4285F4' : sourceType === 'director' ? '#EA4335' : '#F4B400', "\">\n            ").concat(sourceName, "\n          </span>\n          <span style=\"color: ").concat(targetType === 'actor' ? '#4285F4' : targetType === 'director' ? '#EA4335' : '#F4B400', "\">\n            ").concat(targetName, "\n          </span>\n        </div>");
+    return "\n      <div style=\"margin-bottom: 4px;\">\n        <strong>Collaboration avec:</strong>\n      </div>\n      <div style=\"display: flex; justify-content: space-between; margin-bottom: 4px;\">\n        <span style=\"color: ".concat(sourceType === 'actor' ? '#4285F4' : sourceType === 'director' ? '#EA4335' : '#F4B400', "\">\n          ").concat(sourceName, "\n        </span>\n        <span style=\"color: ").concat(targetType === 'actor' ? '#4285F4' : '#EA4335', "\">\n          ").concat(targetName, "\n        </span>\n      </div>");
   }
   var avgBoxOffice = collab.avgBoxOffice;
   var moviesList = collab.movies || [];
   var updatedMovieList = [];
-  if (moviesList && moviesList.length > 0) {
+  if (moviesList.length > 0) {
     updatedMovieList = imdb.filter(function (movie) {
       return moviesList.includes(movie.name);
     });
   }
   var boxOfficeText = avgBoxOffice ? "$".concat(avgBoxOffice.toLocaleString()) : 'N/A';
-
-  // Create movies list HTML with profit data
   var moviesHTML = '';
   if (updatedMovieList.length > 0) {
-    moviesHTML = "<div style=\"margin-top: 6px; border-top: 1px solid #eee; padding-top: 4px;\">\n        <div style=\"max-height: 250px; font-size: 12px;\">";
+    moviesHTML = "<div style=\"margin-top: 6px; border-top: 1px solid #eee; padding-top: 4px;\">\n      <div style=\"max-height: 250px; font-size: 12px;\">";
     updatedMovieList.forEach(function (movie) {
       var profitDisplay = 'N/A';
       if (movie.profit !== undefined && movie.profit !== null) {
@@ -34459,15 +34459,16 @@ function generateConnectionTooltipContent(data, d, collabs, imdb) {
         profitDisplay = "<span style=\"color: ".concat(color, "; margin-left: 5px;\">\n            ").concat(sign, "$").concat(Math.abs(movie.profit).toLocaleString(), "\n          </span>");
       }
       var yearDisplay = movie.year ? "<span style=\"color: #666;\">(".concat(movie.year, ")</span>") : '';
-      moviesHTML += "\n        <div style=\"display: flex; align-items: center; justify-content: space-between; margin: 4px 0; padding: 4px 0; font-size: 15px;\">\n          <div style=\"font-weight: 500;\">\n            \uD83C\uDFAC ".concat(movie.name, " ").concat(yearDisplay, "\n          </div>\n          ").concat(profitDisplay, "\n        </div>");
+      var rankDisplay = movie.rank ? "<span style=\"background-color: #f4f4f4; color: #333; font-size: 12px; padding: 2px 5px; border-radius: 5px;\">#".concat(movie.rank, "</span>") : '';
+      moviesHTML += "\n        <div style=\"display: flex; align-items: center; justify-content: space-between; margin: 4px 0; padding: 4px 0; font-size: 15px; gap: 12px\">\n          <div style=\"font-weight: 500;\">\n            \uD83C\uDFAC ".concat(rankDisplay, " ").concat(movie.name, " ").concat(yearDisplay, "\n          </div>\n          ").concat(profitDisplay, "\n        </div>");
     });
-    moviesHTML += "</div></div>";
+    moviesHTML += '</div></div>';
   }
   var genreHTML = '';
   if (collab.mostPopularGenre) {
     genreHTML = "\n      <div style=\"font-size: 15px; display: flex; align-items: center; margin-bottom: 8px;\">\n        <span style=\"color: #555; margin-right: 10px;\">\uD83C\uDFAD</span>\n        <span style=\"color: #555;\">Genre Populaire:</span>\n        <span style=\"font-weight: bold; margin-left: 5px;\">".concat(collab.mostPopularGenre, "</span>\n      </div>");
   }
-  return "\n      <div style=\"margin-bottom: 4px;\">\n        <strong>Collaboration(s): ".concat(collab.count || d.source.value, " </strong>\n      </div>\n      <div style=\"display: flex; justify-content: space-between; margin-bottom: 4px;\">\n        <span style=\"color: ").concat(sourceType === 'actor' ? '#4285F4' : sourceType === 'director' ? '#EA4335' : '#F4B400', "\">\n          ").concat(sourceName, "\n        </span>\n        <span style=\"color: ").concat(targetType === 'actor' ? '#4285F4' : targetType === 'director' ? '#EA4335' : '#F4B400', "\">\n          ").concat(targetName, "\n        </span>\n      </div>\n      <div style=\"margin-top: 8px; border-top: 1px solid #eee; padding-top: 6px;\">\n        <div style=\"font-size: 15px; display: flex; align-items: center; margin-bottom: 8px;\">\n          <span style=\"color: #555; margin-right: 10px;\">\uD83D\uDCB0</span>\n          <span style=\"color: #555;\">Box Office moyen:</span>\n          <span style=\"font-weight: bold; margin-left: 5px;\">").concat(boxOfficeText, "</span>\n        </div>\n        ").concat(genreHTML, "\n        <div style=\"font-size: 15px; display: flex; align-items: center; margin-bottom: 8px;\">\n          <span style=\"color: #555; margin-right: 10px;\">\u2B50</span>\n          <span style=\"color: #555;\">Note IMDb Moyenne:</span>\n          <span style=\"font-weight: bold; margin-left: 5px;\">").concat(collab.avgRating ? collab.avgRating.toFixed(1) : 'N/A', "</span>\n        </div>\n      </div>\n      ").concat(moviesHTML);
+  return "\n      <div style=\"margin-bottom: 4px;\">\n        <strong>Collaboration(s): ".concat(collab.count || d.source.value, " </strong>\n      </div>\n      <div style=\"display: flex; justify-content: space-between; margin-bottom: 4px;\">\n        <span style=\"color: ").concat(sourceType === 'actor' ? '#4285F4' : '#EA4335', "\">\n          ").concat(sourceName, "\n        </span>\n        <span style=\"color: ").concat(targetType === 'actor' ? '#4285F4' : '#EA4335', "\">\n          ").concat(targetName, "\n        </span>\n      </div>\n      <div style=\"margin-top: 8px; border-top: 1px solid #eee; padding-top: 6px;\">\n        <div style=\"font-size: 15px; display: flex; align-items: center; margin-bottom: 8px;\">\n          <span style=\"color: #555; margin-right: 10px;\">\uD83D\uDCB0</span>\n          <span style=\"color: #555;\">Box Office moyen:</span>\n          <span style=\"font-weight: bold; margin-left: 5px;\">").concat(boxOfficeText, "</span>\n        </div>\n        ").concat(genreHTML, "\n        <div style=\"font-size: 15px; display: flex; align-items: center; margin-bottom: 8px;\">\n          <span style=\"color: #555; margin-right: 10px;\">\u2B50</span>\n          <span style=\"color: #555;\">Note IMDb Moyenne:</span>\n          <span style=\"font-weight: bold; margin-left: 5px;\">").concat(collab.avgRating ? collab.avgRating.toFixed(1) : 'N/A', "</span>\n        </div>\n      </div>\n      ").concat(moviesHTML);
 }
 },{"d3":"../node_modules/d3/src/index.js"}],"viz2-scripts/viz2-viz.js":[function(require,module,exports) {
 "use strict";
@@ -34487,16 +34488,18 @@ function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return 
 function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 /**
  * Display a message when no data is available
+ *
  * @param {d3.Selection} svg - The D3 selection for the SVG element
  * @param {number} width - The width of the SVG element
  * @param {number} height - The height of the SVG element
  */
 function displayNoDataMessage(svg, width, height) {
-  svg.append("text").attr("x", width / 2).attr("y", height / 2).attr("text-anchor", "middle").attr("dominant-baseline", "middle").style("font-size", "16px").style("fill", "#666").text("Aucune donnée disponible. Essayez avec un autre entité ou ajustez les filtres.");
+  svg.append('text').attr('x', width / 2).attr('y', height / 2).attr('text-anchor', 'middle').attr('dominant-baseline', 'middle').style('font-size', '16px').style('fill', '#666').text('Aucune donnée disponible. Essayez avec un autre entité ou ajustez les filtres.');
 }
 
 /**
  * Find indices connected to the given entity
+ *
  * @param {number} idx - The index of the entity to find connections for
  * @param {Array} chords - The chord data
  * @returns {Array} An array of indices connected to the given entity
@@ -34516,7 +34519,8 @@ function findConnectedIndices(idx, chords) {
 
 /**
  * Update the highlighting of elements in the chord diagram
- * @param {Object} g - The D3 group selection
+ *
+ * @param {object} g - The D3 group selection
  * @param {Array} chords - The chord data
  * @param {number} highlightEntity - The index of the entity to highlight
  * @param {number} hoverIdx - The index of the hovered entity (optional)
@@ -34525,27 +34529,27 @@ function updateHighlight(g, chords, highlightEntity) {
   var hoverIdx = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
   var activeIdx = hoverIdx !== null ? hoverIdx : highlightEntity;
   if (activeIdx === null) {
-    g.selectAll(".arc-path").style("opacity", 1);
-    g.selectAll(".entity-label").style("font-weight", "normal").style("opacity", 1);
-    g.selectAll(".ribbon-path").style("opacity", 0.65);
+    g.selectAll('.arc-path').style('opacity', 1);
+    g.selectAll('.entity-label').style('font-weight', 'normal').style('opacity', 1);
+    g.selectAll('.ribbon-path').style('opacity', 0.65);
     return;
   }
   var connectedIndices = findConnectedIndices(activeIdx, chords);
-  g.selectAll(".arc-path").style("opacity", function (d) {
+  g.selectAll('.arc-path').style('opacity', function (d) {
     if (d.index === activeIdx) return 1;
     if (connectedIndices.includes(d.index)) return 0.8;
     return 0.3;
   });
-  g.selectAll(".entity-label").style("font-weight", function (d) {
-    if (d.index === activeIdx) return "bold";
-    if (connectedIndices.includes(d.index)) return "bold";
-    return "normal";
-  }).style("opacity", function (d) {
+  g.selectAll('.entity-label').style('font-weight', function (d) {
+    if (d.index === activeIdx) return 'bold';
+    if (connectedIndices.includes(d.index)) return 'bold';
+    return 'normal';
+  }).style('opacity', function (d) {
     if (d.index === activeIdx) return 1;
     if (connectedIndices.includes(d.index)) return 0.9;
     return 0.3;
   });
-  g.selectAll(".ribbon-path").style("opacity", function (d) {
+  g.selectAll('.ribbon-path').style('opacity', function (d) {
     if (d.source.index === activeIdx || d.target.index === activeIdx) return 0.8;
     return 0.1;
   });
@@ -34553,57 +34557,62 @@ function updateHighlight(g, chords, highlightEntity) {
 
 /**
  * Create entity labels for the chord diagram
+ *
  * @param {d3.Selection} group - The D3 selection for the group element
  * @param {number} outerRadius - The outer radius of the chord diagram
- * @param {Object} data - The data object containing entity information
+ * @param {object} data - The data object containing entity information
  */
 function drawLabels(group, outerRadius, data) {
-  group.append("text").attr("class", "entity-label").each(function (d) {
-    return d.angle = (d.startAngle + d.endAngle) / 2;
-  }).attr("transform", function (d) {
-    return "rotate(".concat(d.angle * 180 / Math.PI - 90, ")\n       translate(").concat(outerRadius + 5, ")\n       ").concat(d.angle > Math.PI ? "rotate(180)" : "");
-  }).attr("dy", "0.35em").attr("text-anchor", function (d) {
-    return d.angle > Math.PI ? "end" : "start";
+  group.append('text').attr('class', 'entity-label').each(function (d) {
+    d.angle = (d.startAngle + d.endAngle) / 2;
+  }).attr('transform', function (d) {
+    return "rotate(".concat(d.angle * 180 / Math.PI - 90, ")\n       translate(").concat(outerRadius + 5, ")\n       ").concat(d.angle > Math.PI ? 'rotate(180)' : '');
+  }).attr('dy', '0.35em').attr('text-anchor', function (d) {
+    return d.angle > Math.PI ? 'end' : 'start';
   }).text(function (d) {
     return data.entities[d.index];
-  }).style("font-size", "12px");
+  }).style('font-size', '12px');
 }
 
 /**
  * Create ribbons for the chord diagram
+ *
  * @param {d3.Selection} g - The D3 selection for the group element
  * @param {Array} chords - The chord data
  * @param {d3.Ribbon} ribbon - The ribbon generator
  * @param {d3.ScaleOrdinal} colorScale - The color scale for the ribbons
- * @param {Object} data - The data object containing entity information
+ * @param {object} data - The data object containing entity information
  * @param {d3.Selection} tooltip - The D3 selection for the tooltip element
+ * @param {object} collabs - The collabs data
+ * @param {object} imdb - The imdb data
  */
 function drawRibbons(g, chords, ribbon, colorScale, data, tooltip, collabs, imdb) {
-  g.append("g").attr("fill-opacity", 0.65).selectAll("path").data(chords).join("path").attr("class", "ribbon-path").attr("d", ribbon).attr("fill", function (d) {
+  g.append('g').attr('fill-opacity', 0.65).selectAll('path').data(chords).join('path').attr('class', 'ribbon-path').attr('d', ribbon).attr('fill', function (d) {
     return d3.interpolateRgb(colorScale(data.types[d.source.index]), colorScale(data.types[d.target.index]))(0.5);
-  }).on("mouseover", function (event, d) {
-    g.selectAll(".ribbon-path").style("opacity", function (ribbonD) {
+  }).on('mouseover', function (event, d) {
+    g.selectAll('.ribbon-path').style('opacity', function (ribbonD) {
       return ribbonD.source.index === d.source.index && ribbonD.target.index === d.target.index ? 1 : 0.1;
     });
-    g.selectAll(".arc-path").style("opacity", function (arcD) {
+    g.selectAll('.arc-path').style('opacity', function (arcD) {
       return arcD.index === d.source.index || arcD.index === d.target.index ? 1 : 0.3;
     });
-    g.selectAll(".entity-label").style("opacity", function (labelD) {
+    g.selectAll('.entity-label').style('opacity', function (labelD) {
       return labelD.index === d.source.index || labelD.index === d.target.index ? 1 : 0.3;
-    }).style("font-weight", function (labelD) {
-      return labelD.index === d.source.index || labelD.index === d.target.index ? "bold" : "normal";
+    }).style('font-weight', function (labelD) {
+      return labelD.index === d.source.index || labelD.index === d.target.index ? 'bold' : 'normal';
     });
     var tooltipContent = (0, _viz2Tooltip.generateConnectionTooltipContent)(data, d, collabs, imdb);
-    tooltip.html(tooltipContent).style("left", event.pageX + 15 + "px").style("top", event.pageY - 15 + "px").style("opacity", 1);
-  }).on("mouseout", function () {
+    tooltip.html(tooltipContent).style('left', event.pageX + 15 + 'px').style('top', event.pageY - 15 + 'px').style('opacity', 1);
+  }).on('mouseout', function () {
     updateHighlight(g, chords, null);
-    tooltip.style("opacity", 0);
+    tooltip.style('opacity', 0);
   });
 }
 
 /**
  * Draw arcs for the chord diagram
- * @param {Object} data - The data object containing entity information
+ *
+ * @param {object} data - The data object containing entity information
  * @param {d3.Selection} g - The D3 selection for the group element
  * @param {Array} chords - The chord data
  * @param {d3.Selection} group - The D3 selection for the group element
@@ -34613,16 +34622,16 @@ function drawRibbons(g, chords, ribbon, colorScale, data, tooltip, collabs, imdb
  * @param {Function} handleEntitySelect - The function to handle entity selection
  */
 function drawArcs(data, g, chords, group, arc, colorScale, tooltip, handleEntitySelect) {
-  group.append("path").attr("class", "arc-path").attr("fill", function (d) {
+  group.append('path').attr('class', 'arc-path').attr('fill', function (d) {
     return colorScale(data.types[d.index]);
-  }).attr("d", arc).style("opacity", 1).on("mouseover", function (event, d) {
+  }).attr('d', arc).style('opacity', 1).on('mouseover', function (event, d) {
     updateHighlight(g, chords, null, d.index);
     var tooltipContent = (0, _viz2Tooltip.generateEntityTooltipContent)(data.entities[d.index], data.types[d.index], data, d.index);
-    tooltip.html(tooltipContent).style("left", event.pageX + 18 + "px").style("top", event.pageY - 18 + "px").style("opacity", 1);
-  }).on("mouseout", function () {
+    tooltip.html(tooltipContent).style('left', event.pageX + 18 + 'px').style('top', event.pageY - 18 + 'px').style('opacity', 1);
+  }).on('mouseout', function () {
     updateHighlight(g, chords, null);
-    tooltip.style("opacity", 0);
-  }).on("click", function (event, d) {
+    tooltip.style('opacity', 0);
+  }).on('click', function (event, d) {
     var entityName = data.entities[d.index];
     var entityType = data.types[d.index];
     handleEntitySelect(entityName, entityType);
@@ -34644,16 +34653,16 @@ function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /**
  * Creates the dropdown container for the search box.
- * 
- * @returns {Object} Object containing the container and dropdown elements
+ *
+ * @returns {object} Object containing the container and dropdown elements
  */
 function createDropdownContainer() {
-  var dropdownContainer = d3.select("#search-container");
-  var dropdown = dropdownContainer.select(".autocomplete-dropdown");
+  var dropdownContainer = d3.select('#search-container');
+  var dropdown = dropdownContainer.select('.autocomplete-dropdown');
   if (dropdown.empty()) {
-    dropdown = dropdownContainer.append("div").attr("class", "autocomplete-dropdown").style("position", "absolute").style("width", "100%").style("max-height", "200px").style("overflow-y", "auto").style("background", "white").style("border", "1px solid #ddd").style("border-top", "none").style("border-radius", "0 0 4px 4px").style("z-index", "1000").style("display", "none").style("box-shadow", "0 4px 8px rgba(0,0,0,0.1)").style("margin-top", "52px");
+    dropdown = dropdownContainer.append('div').attr('class', 'autocomplete-dropdown').style('position', 'absolute').style('width', '100%').style('max-height', '200px').style('overflow-y', 'auto').style('background', 'white').style('border', '1px solid #ddd').style('border-top', 'none').style('border-radius', '0 0 4px 4px').style('z-index', '1000').style('display', 'none').style('box-shadow', '0 4px 8px rgba(0,0,0,0.1)').style('margin-top', '52px');
   } else {
-    dropdown.style("display", "none").html("");
+    dropdown.style('display', 'none').html('');
   }
   return {
     container: dropdownContainer,
@@ -34663,9 +34672,9 @@ function createDropdownContainer() {
 
 /**
  * Updates the dropdown with filtered suggestions based on search term.
- * 
+ *
  * @param {string} searchTerm The search term from the input
- * @param {Object} collabs The collaborations data
+ * @param {object} collabs The collaborations data
  * @param {d3.Selection} dropdown The dropdown element
  * @param {Function} handleEntitySelect Function to handle entity selection
  */
@@ -34725,19 +34734,19 @@ function updateDropdownSuggestions(searchTerm, collabs, dropdown, handleEntitySe
     };
   })));
   if (suggestions.length > 0) {
-    dropdown.html("").style("display", "block");
+    dropdown.html('').style('display', 'block');
     suggestions.forEach(function (suggestion) {
-      dropdown.append("div").attr("class", "dropdown-item").style("padding", "8px 12px").style("cursor", "pointer").style("border-bottom", "1px solid #eee").style("display", "flex").style("justify-content", "space-between").style("align-items", "center").on("mouseover", function () {
-        d3.select(this).style("background", "#f5f5f5");
-      }).on("mouseout", function () {
-        d3.select(this).style("background", "none");
-      }).on("click", function () {
+      dropdown.append('div').attr('class', 'dropdown-item').style('padding', '8px 12px').style('cursor', 'pointer').style('border-bottom', '1px solid #eee').style('display', 'flex').style('justify-content', 'space-between').style('align-items', 'center').on('mouseover', function () {
+        d3.select(this).style('background', '#f5f5f5');
+      }).on('mouseout', function () {
+        d3.select(this).style('background', 'none');
+      }).on('click', function () {
         handleEntitySelect(suggestion.name, suggestion.type);
       }).html("\n          <span>".concat(suggestion.name, "</span>\n          <span style=\"color: ").concat(suggestion.type === 'actor' ? '#4285F4' : suggestion.type === 'director' ? '#EA4335' : '#F4B400', "; \n                       font-size: 12px; padding: 2px 6px; \n                       border: 1px solid ").concat(suggestion.type === 'actor' ? '#4285F4' : suggestion.type === 'director' ? '#EA4335' : '#F4B400', ";\n                       border-radius: 12px;\">\n            ").concat(suggestion.type === 'actor' ? 'Actor' : suggestion.type === 'director' ? 'Director' : 'Writer', "\n          </span>\n        "));
     });
   } else {
-    dropdown.html("").style("display", "block");
-    dropdown.append("div").attr("class", "dropdown-item").style('color', '#999').style('font-style', 'italic').style('padding', '8px 12px').style('border-bottom', '1px solid #eee').text('Aucune entité trouvée');
+    dropdown.html('').style('display', 'block');
+    dropdown.append('div').attr('class', 'dropdown-item').style('color', '#999').style('font-style', 'italic').style('padding', '8px 12px').style('border-bottom', '1px solid #eee').text('Aucune entité trouvée');
   }
 }
 },{}],"viz3-scripts/viz3-preprocess.js":[function(require,module,exports) {
@@ -34763,53 +34772,55 @@ function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 /**
-* Gets the movie length interval in the format "0-60", "61-{60+interval_size}", "{60+interval_size+1}-{60+2*interval_size}", etc.
-* @param {float} movieLength 
-* @param {int} interval_size 
-* @returns {string} The movie length interval in the format "0-60", "61-{60+interval_size}", "{60+interval_size+1}-{60+2*interval_size}", etc.
-*/
-function getMovieLengthInterval(movieLength, interval_size) {
-  if (movieLength < 61) return "0-60";
-  var floor = Math.floor((movieLength - 60) / interval_size) * interval_size + 60;
-  return "".concat(floor, "-").concat(floor + interval_size);
+ * Gets the movie length interval in the format "0-60", "61-{60+interval_size}", "{60+interval_size+1}-{60+2*interval_size}", etc.
+ *
+ * @param {number} movieLength - The length of the movie
+ * @param {number} intervalSize - The size of the interval
+ * @returns {string} The movie length interval in the format "0-60", "61-{60+interval_size}", "{60+interval_size+1}-{60+2*interval_size}", etc.
+ */
+function getMovieLengthInterval(movieLength, intervalSize) {
+  if (movieLength < 61) return '0-60';
+  var floor = Math.floor((movieLength - 60) / intervalSize) * intervalSize + 60;
+  return "".concat(floor, "-").concat(floor + intervalSize);
 }
 
 /**
  * Gets movies with the same field value as the specified movie
+ *
  * @param {Array} data - movie dataset
- * @param {int} intervalsLenght - La longueur des intervalles de dates, e.g : intervalsLenght : 5 -> intervals [1921,1925],[1926,1930]...
- * @param {string} selectedMetric - La métrique utilisé pour l'analyse (e.g., "box_office", "profit", "rating", "numNominations")
- * @returns {Object} data in the form 
- * { 
+ * @param {number} intervalsLenght - The length of the intervals of dates, e.g : intervalsLenght : 5 -> intervals [1921,1925],[1926,1930]...
+ * @param {string} selectedMetric - The metric used for the analysis (e.g., "box_office", "profit", "rating", "numNominations")
+ * @returns {object} data in the form
+ * {
  *  "[1921, 1925]": {
- * 
+ *
  *          "totalMetric" : float //pour rating = num movies dans cet interval
- * 
+ *
  *          "metricPerGenre" : {
  *              "Action" : float //pour rating = num movies de ce genre dans cet interval
  *              "Drama" : float,
  *               ...
  *              },
- * 
+ *
  *           "metricsPerMovieLenght" : {
  *                "0-100" : float //pour rating = num movies de cette longueur dans cet interval
  *               "100-110" : float,
  *               ...
  *               },
- * 
+ *
  *           "metricsPerCertificate" : {
  *                "R" : float //pour rating = num movies de cette catégorie dans cet interval
  *                "PG-13" : float,
  *                 ...
  *                },
  *      },
- * 
+ *
  *  "[1926, 1930]": {
  *      ...
  *      },
- * 
+ *
  *  ...
- * 
+ *
  *  "[2016, 2020]": {
  *      ...
  *      }
@@ -34836,24 +34847,26 @@ function getDataPerTimeInterval(data, intervalsLenght, selectedMetric) {
       // Add the movie contribution to this year
       var yearElem = tmp[year];
       var metric = null;
-      if (selectedMetric === "box_office") {
-        if (typeof movie.box_office === "number") {
+      if (selectedMetric === 'box_office') {
+        if (typeof movie.box_office === 'number') {
           metric = movie.box_office;
         } else {
           metric = 0;
         }
       }
-      if (selectedMetric === "rating") metric = 1;
-      if (selectedMetric === "profit") {
-        if (typeof movie.profit === "number") {
+      if (selectedMetric === 'rating') {
+        metric = 1;
+      }
+      if (selectedMetric === 'profit') {
+        if (typeof movie.profit === 'number') {
           metric = movie.profit;
         } else {
           metric = 0;
         }
       }
-      if (selectedMetric === "numNominations") {
-        var ggNomination = movie.goldenGlobesData ? movie.goldenGlobesData.goldenGlobesNominations ? typeof movie.goldenGlobesData.goldenGlobesNominations === "number" ? movie.goldenGlobesData.goldenGlobesNominations : 0 : 0 : 0;
-        var oscarNomination = movie.oscarsData ? movie.oscarsData.oscarNominations ? typeof movie.oscarsData.oscarNominations === "number" ? movie.oscarsData.oscarNominations : 0 : 0 : 0;
+      if (selectedMetric === 'numNominations') {
+        var ggNomination = movie.goldenGlobesData ? movie.goldenGlobesData.goldenGlobesNominations ? typeof movie.goldenGlobesData.goldenGlobesNominations === 'number' ? movie.goldenGlobesData.goldenGlobesNominations : 0 : 0 : 0;
+        var oscarNomination = movie.oscarsData ? movie.oscarsData.oscarNominations ? typeof movie.oscarsData.oscarNominations === 'number' ? movie.oscarsData.oscarNominations : 0 : 0 : 0;
         metric = ggNomination + oscarNomination;
       }
       if (movie.box_office) {
@@ -34877,8 +34890,6 @@ function getDataPerTimeInterval(data, intervalsLenght, selectedMetric) {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       _loop2();
     }
-
-    // Now we need to reduce the tmp dict by grouping the years by intervals
   } catch (err) {
     _iterator.e(err);
   } finally {
@@ -34895,19 +34906,19 @@ function getDataPerTimeInterval(data, intervalsLenght, selectedMetric) {
         metricsPerCertificate: {}
       };
     }
-    var res_elem = res[interval];
-    res_elem.totalMetric += yearElem.totalMetric;
+    var resElem = res[interval];
+    resElem.totalMetric += yearElem.totalMetric;
     Object.keys(yearElem.metricPerGenre).forEach(function (genre) {
-      if (!res_elem.metricPerGenre[genre]) res_elem.metricPerGenre[genre] = 0;
-      res_elem.metricPerGenre[genre] += yearElem.metricPerGenre[genre];
+      if (!resElem.metricPerGenre[genre]) resElem.metricPerGenre[genre] = 0;
+      resElem.metricPerGenre[genre] += yearElem.metricPerGenre[genre];
     });
     Object.keys(yearElem.metricsPerMovieLenght).forEach(function (lengthInterval) {
-      if (!res_elem.metricsPerMovieLenght[lengthInterval]) res_elem.metricsPerMovieLenght[lengthInterval] = 0;
-      res_elem.metricsPerMovieLenght[lengthInterval] += yearElem.metricsPerMovieLenght[lengthInterval];
+      if (!resElem.metricsPerMovieLenght[lengthInterval]) resElem.metricsPerMovieLenght[lengthInterval] = 0;
+      resElem.metricsPerMovieLenght[lengthInterval] += yearElem.metricsPerMovieLenght[lengthInterval];
     });
     Object.keys(yearElem.metricsPerCertificate).forEach(function (certificate) {
-      if (!res_elem.metricsPerCertificate[certificate]) res_elem.metricsPerCertificate[certificate] = 0;
-      res_elem.metricsPerCertificate[certificate] += yearElem.metricsPerCertificate[certificate];
+      if (!resElem.metricsPerCertificate[certificate]) resElem.metricsPerCertificate[certificate] = 0;
+      resElem.metricsPerCertificate[certificate] += yearElem.metricsPerCertificate[certificate];
     });
   };
   for (var year in tmp) {
@@ -34917,43 +34928,43 @@ function getDataPerTimeInterval(data, intervalsLenght, selectedMetric) {
 }
 
 /**
- * 
- * @param {object} intervalData - res of preceding function in form 
- * { 
+ *
+ * @param {object} intervalData - res of preceding function in form
+ * {
  *  "[1921, 1925]": {
- * 
+ *
  *          "totalMetric" : float //pour rating = num movies dans cet interval
- * 
+ *
  *          "metricPerGenre" : {
  *              "Action" : float //pour rating = num movies de ce genre dans cet interval
  *              "Drama" : float,
  *               ...
  *              },
- * 
+ *
  *           "metricsPerMovieLenght" : {
  *                "0-100" : float //pour rating = num movies de cette longueur dans cet interval
  *               "100-110" : float,
  *               ...
  *               },
- * 
+ *
  *           "metricsPerCertificate" : {
  *                "R" : float //pour rating = num movies de cette catégorie dans cet interval
  *                "PG-13" : float,
  *                 ...
  *                },
  *      },
- * 
+ *
  *  "[1926, 1930]": {
  *      ...
  *      },
- * 
+ *
  *  ...
- * 
+ *
  *  "[2016, 2020]": {
  *      ...
  *      }
  * }
- * @param {string} selectedFilter - Le filtre utilisé pour l'analyse (e.g., "genre", "movieLength", "certificate")
+ * @param {string} selectedFilter - The filter used for the analysis (e.g., "genre", "movieLength", "certificate")
  * @returns {object} res in the form
  * {
  * "[1921, 1925]" : {
@@ -34965,9 +34976,14 @@ function getDataPerTimeInterval(data, intervalsLenght, selectedMetric) {
  *      },
  *  [1926, 1930] : {...}
  *   ...
- * } 
+ * }
  */
 
+/**
+ * @param {object} intervalData - The interval data
+ * @param {string} selectedFilter - The selected filter
+ * @returns {object} The market data
+ */
 function getMarketPerTimeInterval(intervalData, selectedFilter) {
   var res = {};
   var _loop3 = function _loop3() {
@@ -34975,45 +34991,47 @@ function getMarketPerTimeInterval(intervalData, selectedFilter) {
     res[interval] = {
       metricForfilter: {}
     };
-    var res_elem = res[interval];
-
-    // For example if we have selected the metric "profit", the profits values can be negative, so for each interval we calculate the min and if it is negative we add it to each value of the interval to make all values positive.
-
-    if (selectedFilter === "genre") {
-      // Calculate the min :
+    var resElem = res[interval];
+    if (selectedFilter === 'genre') {
       var minG = Math.min.apply(Math, _toConsumableArray(Object.values(intervalElem.metricPerGenre)));
-      if (minG < 0) Object.keys(intervalElem.metricPerGenre).forEach(function (genre) {
-        intervalElem.metricPerGenre[genre] += -minG;
-      });
-      var sum_genre_metric = Object.values(intervalElem.metricPerGenre).reduce(function (acc, val) {
+      if (minG < 0) {
+        Object.keys(intervalElem.metricPerGenre).forEach(function (genre) {
+          intervalElem.metricPerGenre[genre] += -minG;
+        });
+      }
+      var sumGenreMetric = Object.values(intervalElem.metricPerGenre).reduce(function (acc, val) {
         return acc + val;
       }, 0);
       Object.keys(intervalElem.metricPerGenre).forEach(function (genre) {
-        res_elem.metricForfilter[genre] = intervalElem.metricPerGenre[genre] / sum_genre_metric;
+        resElem.metricForfilter[genre] = intervalElem.metricPerGenre[genre] / sumGenreMetric;
       });
     }
-    if (selectedFilter === "movieLength") {
+    if (selectedFilter === 'movieLength') {
       var minML = Math.min.apply(Math, _toConsumableArray(Object.values(intervalElem.metricsPerMovieLenght)));
-      if (minML < 0) Object.keys(intervalElem.metricsPerMovieLenght).forEach(function (lengthInterval) {
-        intervalElem.metricsPerMovieLenght[lengthInterval] += -minML;
-      });
-      var sum_lenght_metric = Object.values(intervalElem.metricsPerMovieLenght).reduce(function (acc, val) {
+      if (minML < 0) {
+        Object.keys(intervalElem.metricsPerMovieLenght).forEach(function (lengthInterval) {
+          intervalElem.metricsPerMovieLenght[lengthInterval] += -minML;
+        });
+      }
+      var sumLenghtMetric = Object.values(intervalElem.metricsPerMovieLenght).reduce(function (acc, val) {
         return acc + val;
       }, 0);
       Object.keys(intervalElem.metricsPerMovieLenght).forEach(function (lengthInterval) {
-        res_elem.metricForfilter[lengthInterval] = intervalElem.metricsPerMovieLenght[lengthInterval] / sum_lenght_metric;
+        resElem.metricForfilter[lengthInterval] = intervalElem.metricsPerMovieLenght[lengthInterval] / sumLenghtMetric;
       });
     }
-    if (selectedFilter === "certificate") {
+    if (selectedFilter === 'certificate') {
       var minC = Math.min.apply(Math, _toConsumableArray(Object.values(intervalElem.metricsPerCertificate)));
-      if (minC < 0) Object.keys(intervalElem.metricsPerCertificate).forEach(function (certificate) {
-        intervalElem.metricsPerCertificate[certificate] += -minC;
-      });
-      var sum_certificate_metric = Object.values(intervalElem.metricsPerCertificate).reduce(function (acc, val) {
+      if (minC < 0) {
+        Object.keys(intervalElem.metricsPerCertificate).forEach(function (certificate) {
+          intervalElem.metricsPerCertificate[certificate] += -minC;
+        });
+      }
+      var sumCertificateMetric = Object.values(intervalElem.metricsPerCertificate).reduce(function (acc, val) {
         return acc + val;
       }, 0);
       Object.keys(intervalElem.metricsPerCertificate).forEach(function (certificate) {
-        res_elem.metricForfilter[certificate] = intervalElem.metricsPerCertificate[certificate] / sum_certificate_metric;
+        resElem.metricForfilter[certificate] = intervalElem.metricsPerCertificate[certificate] / sumCertificateMetric;
       });
     }
   };
@@ -35024,8 +35042,8 @@ function getMarketPerTimeInterval(intervalData, selectedFilter) {
 }
 
 /**
- * 
- * @param {*} marketData - res of preceding function 
+ *
+ * @param {*} marketData - res of preceding function
  * @param {*} maxLines - object of the same form as marketData, but with the number of element in metricsForfilter limited to maxLines by regrouping the last elements in "Other" - and we store the list of present category in the res object to be able to display the legend
  * * @returns {object} res in the form
  * {
@@ -35036,14 +35054,19 @@ function getMarketPerTimeInterval(intervalData, selectedFilter) {
  * }
  */
 
+/**
+ * @param {object} marketData - The market data
+ * @param {number} maxLines - The maximum number of lines
+ * @returns {object} The reduced market data
+ */
 function reduceNumberOfLine(marketData, maxLines) {
   var res = {
-    "presentCategory": [],
-    "intervals": {}
+    presentCategory: [],
+    intervals: {}
   };
   var _loop4 = function _loop4() {
     var intervalElem = marketData[interval];
-    var res_elem = res["intervals"][interval] = {
+    var resElem = res.intervals[interval] = {
       metricForfilter: {}
     };
 
@@ -35057,10 +35080,10 @@ function reduceNumberOfLine(marketData, maxLines) {
       var _ref2 = _slicedToArray(_ref, 2),
         genre = _ref2[0],
         value = _ref2[1];
-      res_elem.metricForfilter[genre] = value;
-      res["presentCategory"].push(genre);
+      resElem.metricForfilter[genre] = value;
+      res.presentCategory.push(genre);
     });
-    res_elem.metricForfilter["Other"] = otherGenres.reduce(function (acc, _ref3) {
+    resElem.metricForfilter.Other = otherGenres.reduce(function (acc, _ref3) {
       var _ref4 = _slicedToArray(_ref3, 2),
         _ = _ref4[0],
         value = _ref4[1];
@@ -35070,8 +35093,8 @@ function reduceNumberOfLine(marketData, maxLines) {
   for (var interval in marketData) {
     _loop4();
   }
-  res["presentCategory"] = _toConsumableArray(new Set(res["presentCategory"]));
-  res["presentCategory"].push("Other");
+  res.presentCategory = _toConsumableArray(new Set(res.presentCategory));
+  res.presentCategory.push('Other');
   return res;
 }
 
@@ -35083,7 +35106,7 @@ function reduceNumberOfLine(marketData, maxLines) {
  *  { interval: "[1928, 1936]", Comedy: 0.18, Drama: 0.18, ..., Other: 0.*  36 },
  *  ...
  * ]
-*/
+ */
 function stackData(marketDataSmall) {
   return Object.entries(marketDataSmall.intervals).map(function (_ref5) {
     var _ref6 = _slicedToArray(_ref5, 2),
@@ -35158,12 +35181,12 @@ function appendGraphLabels(g) {
 }
 
 /**
-* Positions the x axis label and y axis label.
-*
-* @param {*} g The d3 Selection of the graph's g SVG element
-* @param {number} width The width of the graph
-* @param {number} height The height of the graph
-*/
+ * Positions the x axis label and y axis label.
+ *
+ * @param {*} g The d3 Selection of the graph's g SVG element
+ * @param {number} width The width of the graph
+ * @param {number} height The height of the graph
+ */
 function positionLabels(g, width, height) {
   g.select('.x.axis-text').attr('transform', 'translate(' + width / 2 + ', ' + (height + 50) + ')');
   g.select('.y.axis-text').attr('transform', 'translate(-50, ' + height / 1.5 + ')rotate(-90)');
@@ -35174,6 +35197,7 @@ function positionLabels(g, width, height) {
  *
  * @param {*} xScale The scale to use to draw the axis
  * @param {number} height The height of the graphic
+ * @param {Array<string>} intervals The intervals to use to draw the axis
  */
 function drawXAxis(xScale, height, intervals) {
   var tickStep = Math.ceil(intervals.length / 12);
@@ -35191,7 +35215,7 @@ function drawXAxis(xScale, height, intervals) {
  * @param {*} yScale The scale to use to draw the axis
  */
 function drawYAxis(yScale) {
-  d3.select('.y3.axis').call(d3.axisLeft(yScale).tickSizeOuter(0).ticks(10).tickFormat(d3.format(".2f")));
+  d3.select('.y3.axis').call(d3.axisLeft(yScale).tickSizeOuter(0).ticks(10).tickFormat(d3.format('.2f')));
 }
 },{}],"viz3-scripts/viz3-scales.js":[function(require,module,exports) {
 "use strict";
@@ -35203,8 +35227,9 @@ exports.setXScale = setXScale;
 exports.setYScale = setYScale;
 /**
  * Sets the X scale for the visualization.
- * @param {number} width The width of the graph
- * @param {object} data The data to be used
+ *
+ * @param {number} width - The width of the graph
+ * @param {Array<string>} intervals - The intervals to be used
  * @returns {*} The linear scale in X
  */
 function setXScale(width, intervals) {
@@ -35214,6 +35239,7 @@ function setXScale(width, intervals) {
 
 /**
  * Sets the Y scale for the visualization.
+ *
  * @param {number} height The height of the graph
  * @returns {*} The linear scale in Y
  */
@@ -35230,15 +35256,16 @@ Object.defineProperty(exports, "__esModule", {
 exports.createLegend = createLegend;
 /**
  * Creates a legend for the visualization.
- * @param {Object} viz3MarketPerIntervalSmall - The data for the visualization
- * @param {Object} legendDiv - The legend element
+ *
+ * @param {object} viz3MarketPerIntervalSmall - The data for the visualization
+ * @param {object} legendDiv - The legend element
  * @param {Function} colorScale - The color scale for the visualization
  */
 function createLegend(viz3MarketPerIntervalSmall, legendDiv, colorScale) {
   viz3MarketPerIntervalSmall.presentCategory.forEach(function (cat) {
-    var item = legendDiv.append("div").style("display", "flex").style("align-items", "center");
-    item.append("div").style("width", "30px").style("height", "15px").style("background-color", colorScale(cat)).style("margin-right", "5px");
-    item.append("span").text(cat).style("font-size", "12px");
+    var item = legendDiv.append('div').style('display', 'flex').style('align-items', 'center');
+    item.append('div').style('width', '30px').style('height', '15px').style('background-color', colorScale(cat)).style('margin-right', '5px');
+    item.append('span').text(cat).style('font-size', '12px');
   });
 }
 },{}],"viz3-scripts/viz3-tooltip.js":[function(require,module,exports) {
@@ -35255,6 +35282,7 @@ exports.setRectHoverHandler = setRectHoverHandler;
  * rank, and release year.
  *
  * @param {object} d The data associated to the hovered element
+ * @param {object} colorScale The color scale
  * @returns {string} The tooltip contents
  */
 function getContents(d, colorScale) {
@@ -35264,7 +35292,8 @@ function getContents(d, colorScale) {
 /**
  * Sets up the hover event handler. The tooltip should show on on hover.
  *
- * @param {*} tip The tooltip
+ * @param {object} g - The D3 selection of the <g> element to hover over
+ * @param {*} tip - The tooltip
  */
 function setRectHoverHandler(g, tip) {
   g.selectAll('.rect3').on('mouseover', function (e, d) {
@@ -35291,10 +35320,11 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 /**
  * Selects a random rectangle from the visualization.
- * @returns {Object} The selected rectangle's data
+ *
+ * @returns {object} The selected rectangle's data
  */
 function selectRandomRectangle() {
-  var rectangles = d3.selectAll(".bars .rect3").nodes();
+  var rectangles = d3.selectAll('.bars .rect3').nodes();
   if (rectangles.length === 0) {
     return;
   }
@@ -35304,9 +35334,9 @@ function selectRandomRectangle() {
   });
   var randomIndex = Math.floor(Math.random() * filteredRectangles.length);
   var randomRect = filteredRectangles[randomIndex];
-  randomRect.setAttribute("stroke", "black");
-  randomRect.setAttribute("stroke-width", "2");
-  randomRect.setAttribute("stroke-dasharray", "4,2");
+  randomRect.setAttribute('stroke', 'black');
+  randomRect.setAttribute('stroke-width', '2');
+  randomRect.setAttribute('stroke-dasharray', '4,2');
   randomRect.parentNode.appendChild(randomRect);
   randomRect.parentNode.parentNode.appendChild(randomRect.parentNode);
   var rectData = d3.select(randomRect).datum();
@@ -35319,15 +35349,23 @@ function selectRandomRectangle() {
 
 /**
  * Generates an example phrase for the visualization based on the selected rectangle's data.
- * @param {Object} dataExample - The selected rectangle's data
+ *
+ * @param {object} dataExample - The selected rectangle's data
  * @param {Function} colorScale - The color scale for the visualization
  * @param {string} metric - The selected metric
  * @returns {string} The generated example phrase
  */
 function examplePhrase(dataExample, colorScale, metric) {
-  var partsOfInterval = dataExample.interval.replace("[", "").replace("]", "").split(",");
+  var partsOfInterval = dataExample.interval.replace('[', '').replace(']', '').split(',');
   var startYear = partsOfInterval[0].trim();
   var endYear = partsOfInterval[1].trim();
+
+  /**
+   * Checks if the category is a length category
+   *
+   * @param {string} category - The category to check
+   * @returns {Array<number>|null} The start and end years of the length category, or null if it's not a length category
+   */
   function categoryIsLenght(category) {
     var regex = /(\d+)-(\d+)/;
     var match = category.match(regex);
@@ -35347,22 +35385,22 @@ function examplePhrase(dataExample, colorScale, metric) {
       num2 = _categoryIsLenght2[1];
     categoryExplicit = "".concat(num1, " \xE0 ").concat(num2, "min");
   }
-  var descriptionMarche = "";
-  var metricSelected = "";
-  if (metric === "box_office") {
-    metricSelected = "Comme la métrique sélectionnée est le box-office :";
+  var descriptionMarche = '';
+  var metricSelected = '';
+  if (metric === 'box_office') {
+    metricSelected = 'Comme la métrique sélectionnée est le box-office :';
     descriptionMarche = "cela veut dire que la cat\xE9gorie <strong style=\"color : ".concat(colorScale(dataExample.category), "\">").concat(categoryExplicit, "</strong> repr\xE9sentait <strong>").concat(dataExample.proportion, "</strong> du box-office r\xE9alis\xE9 entre <strong>").concat(startYear, "</strong> et <strong>").concat(endYear, "</strong>");
   }
-  if (metric === "rating") {
-    metricSelected = "Comme la métrique sélectionnée est la position dans le classement :";
+  if (metric === 'rating') {
+    metricSelected = 'Comme la métrique sélectionnée est la position dans le classement :';
     descriptionMarche = "cela veut dire que la cat\xE9gorie <strong style=\"color : ".concat(colorScale(dataExample.category), "\">").concat(categoryExplicit, "</strong> repr\xE9sentait <strong>").concat(dataExample.proportion, "</strong> des films pr\xE9sents dans le classement IMDB entre <strong>").concat(startYear, "</strong> et <strong>").concat(endYear, "</strong>");
   }
-  if (metric === "numNominations") {
-    metricSelected = "Comme la métrique sélectionnée est le nombre de nominations :";
+  if (metric === 'numNominations') {
+    metricSelected = 'Comme la métrique sélectionnée est le nombre de nominations :';
     descriptionMarche = "cela veut dire que que la cat\xE9gorie <strong style=\"color : ".concat(colorScale(dataExample.category), "\">").concat(categoryExplicit, "</strong> repr\xE9sentait <strong>").concat(dataExample.proportion, "</strong> des nominations aux Oscars et Golden Globes entre <strong>").concat(startYear, "</strong> et <strong>").concat(endYear, "</strong>");
   }
-  if (metric === "profit") {
-    metricSelected = "Comme la métrique sélectionnée est le profit généré :";
+  if (metric === 'profit') {
+    metricSelected = 'Comme la métrique sélectionnée est le profit généré :';
     descriptionMarche = "cela veut dire que que la cat\xE9gorie <strong style=\"color : ".concat(colorScale(dataExample.category), "\">").concat(categoryExplicit, "</strong> repr\xE9sentait <strong>").concat(dataExample.proportion, "</strong> du profit r\xE9alis\xE9 entre <strong>").concat(startYear, "</strong> et <strong>").concat(endYear, "</strong>");
   }
   var ExempleLecture = "\n    <div class=\"exempleViz3\">\n        <strong style=\"text-decoration : underline\">Exemple de Lecture</strong> : Entre <strong>".concat(startYear, "</strong> et <strong>").concat(endYear, "</strong>, la cat\xE9gorie <strong style=\"color : ").concat(colorScale(dataExample.category), "\">").concat(dataExample.category, "</strong> repr\xE9sentait <strong>").concat(dataExample.proportion, "</strong> du march\xE9. ").concat(metricSelected, " ").concat(descriptionMarche, "\n    </div>");
@@ -35638,8 +35676,8 @@ function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length)
 /**
  * Gets movies with the same field value as the specified movie
  *
- * @param {Array} data - Movies in the data to analyze
  * @param {string} movieName - Selected movie name
+ * @param {Array} data - Movies in the data to analyze
  * @param {string} field - Selected field used for comparison and dependency
  * @returns {Array} Sorted array of matching movies
  */
@@ -35673,8 +35711,7 @@ function getMoviesBySameField(movieName, data, field) {
  * Calculates yearly averages for a success metric
  *
  * @param {Array<object>} data - Array of movie objects
- * @param {string} successMesure - Field containing the success metric
- * @param succesMesure
+ * @param {string} succesMesure - The success metric
  * @returns {Array<{year: number, average: number, count: number, noms: string}>} Yearly average data
  */
 function averageByYear(data, succesMesure) {
@@ -35801,32 +35838,32 @@ function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 /** Draws the circles and lines associated with the given data
- * 
- * @param {*} data
- * @param {d3.Scale} xScale
- * @param {d3.Scale} yScale
- * @param {d3.Scale} colorScale
- * @param {number} width
- * @returns {void}
+ *
+ * @param {Array<object>} data - The data to draw
+ * @param {d3.Scale} xScale - The x scale
+ * @param {d3.Scale} yScale - The y scale
+ * @param {d3.Scale} colorScale - The color scale
+ * @param {number} width - The width of the graph
+ * @returns {void} - The function does not return anything
  */
 function drawCircles(data, xScale, yScale, colorScale, width) {
-  var courbesElement = d3.select(".courbes");
+  var courbesElement = d3.select('.courbes');
 
   // Clear previous elements
-  courbesElement.selectAll(".ensemble-points").remove();
-  courbesElement.selectAll(".data-line").remove();
-  courbesElement.selectAll(".legend-item").remove();
-  courbesElement.selectAll(".category-group").remove();
-  courbesElement.selectAll(".error-message").remove();
+  courbesElement.selectAll('.ensemble-points').remove();
+  courbesElement.selectAll('.data-line').remove();
+  courbesElement.selectAll('.legend-item').remove();
+  courbesElement.selectAll('.category-group').remove();
+  courbesElement.selectAll('.error-message').remove();
 
   // Error message if empty data
   if (!data || data.length === 0 || data.every(function (d) {
     return !d.data || d.data.length === 0;
   })) {
-    courbesElement.append("text").attr("class", "error-message").attr("x", width / 2).attr("y", 100).attr("text-anchor", "middle").style("font-size", "20px").style("fill", "gray").text("Données indisponibles pour cette mesure de succès");
+    courbesElement.append('text').attr('class', 'error-message').attr('x', width / 2).attr('y', 100).attr('text-anchor', 'middle').style('font-size', '20px').style('fill', 'gray').text('Données indisponibles pour cette mesure de succès');
     return;
   }
-  var categoryGroups = courbesElement.selectAll(".category-group").data(data).enter().append("g").attr("class", function (d) {
+  var categoryGroups = courbesElement.selectAll('.category-group').data(data).enter().append('g').attr('class', function (d) {
     return "category-group ".concat(d.category.replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').toLowerCase());
   });
   var line = d3.line().x(function (d) {
@@ -35836,65 +35873,65 @@ function drawCircles(data, xScale, yScale, colorScale, width) {
   });
 
   // Draw lines
-  categoryGroups.append("path").attr("class", "data-line") // Sanitize class name
-  .attr("d", function (d) {
+  categoryGroups.append('path').attr('class', 'data-line').attr('d', function (d) {
     return line(d.data);
-  }).attr("fill", "none").attr("stroke", function (d) {
+  }).attr('fill', 'none').attr('stroke', function (d) {
     return colorScale(d.category);
-  }).attr("stroke-width", 4).on("mouseover", function (event, d) {
+  }).attr('stroke-width', 4).on('mouseover', function (event, d) {
     // Select the parent group and all its elements
     var parentGroup = d3.select(this.parentNode);
 
     // Fade all other category groups
-    d3.selectAll(".category-group").each(function () {
+    d3.selectAll('.category-group').each(function () {
       if (this !== parentGroup.node()) {
-        var currentOpacity = parseFloat(d3.select(this).style("opacity"));
-        if (currentOpacity != 0) {
-          d3.select(this).style("opacity", 0.35);
+        var currentOpacity = parseFloat(d3.select(this).style('opacity'));
+        if (currentOpacity !== 0) {
+          d3.select(this).style('opacity', 0.35);
         }
       }
     });
 
     // Highlight the hovered group
-    parentGroup.style("opacity", 1);
-  }).on("mouseout", function (event, d) {
+    parentGroup.style('opacity', 1);
+  }).on('mouseout', function (event, d) {
     // Restore opacity for all groups
-    d3.selectAll(".category-group, .ensemble-points").each(function () {
-      var currentOpacity = parseFloat(d3.select(this).style("opacity"));
-      if (currentOpacity != 0) {
-        d3.select(this).style("opacity", 1);
+    d3.selectAll('.category-group, .ensemble-points').each(function () {
+      var currentOpacity = parseFloat(d3.select(this).style('opacity'));
+      if (currentOpacity !== 0) {
+        d3.select(this).style('opacity', 1);
       }
     });
   });
 
   // Draw points
-  categoryGroups.append('g').attr("class", "ensemble-points").attr("fill", function (d) {
+  categoryGroups.append('g').attr('class', 'ensemble-points').attr('fill', function (d) {
     return colorScale(d.category);
-  }).selectAll(".data-point").data(function (d) {
+  }).selectAll('.data-point').data(function (d) {
     return d.data.map(function (p) {
       return _objectSpread(_objectSpread({}, p), {}, {
         category: d.category
       });
     });
   }) // Add category
-  .enter().append("circle").attr("class", "data-point").attr("cx", function (d) {
+  .enter().append('circle').attr('class', 'data-point').attr('cx', function (d) {
     return xScale(d.year);
-  }).attr("cy", function (d) {
+  }).attr('cy', function (d) {
     return yScale(d.average);
-  }).attr("r", 5).attr("stroke", "white");
+  }).attr('r', 5).attr('stroke', 'white');
 }
 
 /** Draw the point corresponding to the reference movie in a different way
-* @param {string} title
-* @param {Array<Object>} data
-* @param {d3.Scale} xScale
-* @param {d3.Scale} yScale
-* @param {number} height
-* @returns {void}
-*/
+ *
+ * @param {string} title - The title of the reference movie
+ * @param {Array<object>} data - The data to draw
+ * @param {d3.Scale} xScale - The x scale
+ * @param {d3.Scale} yScale - The y scale
+ * @param {number} height - The height of the graph
+ * @returns {void} - The function does not return anything
+ */
 function drawRef(title, data, xScale, yScale, height) {
-  var courbesElement = d3.select(".courbes");
-  courbesElement.selectAll(".ref-marker, .ref-line").remove();
+  var courbesElement = d3.select('.courbes');
+  courbesElement.selectAll('.ref-marker, .ref-line').remove();
   var targetMovie = data.find(function (movie) {
     return movie.name === title;
   });
@@ -35903,13 +35940,9 @@ function drawRef(title, data, xScale, yScale, height) {
   var yPos = yScale(100);
 
   // Add horizontal trace line (from y-axis to point)
-  courbesElement.append("line").attr("class", "ref-line").attr("x1", 0) // Start at y-axis
-  .attr("x2", xPos).attr("y1", yPos).attr("y2", yPos).attr("stroke", "black").attr("stroke-width", 2).attr("stroke-dasharray", "3,3") // Dashed line
-  .attr("opacity", 0.7);
-  courbesElement.append("line").attr("class", "ref-line").attr("x1", xPos) // Start at y-axis
-  .attr("x2", xPos).attr("y1", yPos).attr("y2", height).attr("stroke", "black").attr("stroke-width", 2).attr("stroke-dasharray", "3,3") // Dashed line
-  .attr("opacity", 0.7);
-  courbesElement.append("circle").datum(targetMovie).attr("class", "ref-marker").attr("cx", xPos).attr("cy", yPos).attr("r", 5).attr("fill", "white").attr("stroke", "black").attr("stroke-width", 2);
+  courbesElement.append('line').attr('class', 'ref-line').attr('x1', 0).attr('x2', xPos).attr('y1', yPos).attr('y2', yPos).attr('stroke', 'black').attr('stroke-width', 2).attr('stroke-dasharray', '3,3').attr('opacity', 0.7);
+  courbesElement.append('line').attr('class', 'ref-line').attr('x1', xPos).attr('x2', xPos).attr('y1', yPos).attr('y2', height).attr('stroke', 'black').attr('stroke-width', 2).attr('stroke-dasharray', '3,3').attr('opacity', 0.7);
+  courbesElement.append('circle').datum(targetMovie).attr('class', 'ref-marker').attr('cx', xPos).attr('cy', yPos).attr('r', 5).attr('fill', 'white').attr('stroke', 'black').attr('stroke-width', 2);
 }
 },{}],"viz4-scripts/viz4-tooltip.js":[function(require,module,exports) {
 "use strict";
@@ -35930,9 +35963,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
  * The tooltip features the movie name, box office, total nominations,
  * rank, and release year.
  *
- * @param {object} d The data associated to the hovered element
- * @param mesureSucces - Selected success metric in which the graph will be dependant on
- * @param colorScale - The scale color to use
+ * @param {object} d - The data associated to the hovered element
+ * @param {string} mesureSucces - The selected success metric in which the graph will be dependant on
+ * @param {Function} colorScale - The scale color to use
  * @returns {string} The tooltip contents
  */
 function getContents(d, mesureSucces, colorScale) {
@@ -35948,8 +35981,8 @@ function getContents(d, mesureSucces, colorScale) {
     Directors: 'Réalisateur',
     Writers: 'Scénariste'
   };
-  var str = d.category || "";
-  var _str$split$map = str.split(":").map(function (s) {
+  var str = d.category || '';
+  var _str$split$map = str.split(':').map(function (s) {
       return s.trim();
     }),
     _str$split$map2 = _slicedToArray(_str$split$map, 2),
@@ -35963,11 +35996,11 @@ function getContents(d, mesureSucces, colorScale) {
   }).join('') : '<li>No rated movies</li>';
   var html = "<div class=\"tooltip-value\" style=\"\n      z-index: 1000;\n      background: rgba(255, 255, 255, 0.95);\n      fontFamily: 'Segoe UI, sans-serif';\n      padding: 12px;\n      border-radius: 8px;\n      color: '#222';\n      lineHeight: '1.5';\n      border: '1px solid #ccc';\n      box-shadow: 0 2px 8px rgba(0,0,0,0.15);\n      font-size: '13px',\n      \"\n  >  ";
   if (d.name !== undefined) {
-    var unit = mesureSucces == "box_office" || mesureSucces == "profit" ? "$" : "";
-    var valeur = mesureSucces == "numNominations" ? d[mesureSucces] : d[mesureSucces].toFixed(2);
+    var unit = mesureSucces === 'box_office' || mesureSucces === 'profit' ? '$' : '';
+    var valeur = mesureSucces === 'numNominations' ? d[mesureSucces] : d[mesureSucces].toFixed(2);
     html += "<div style=\"margin-bottom: 8px;\">\n              <strong style=\"font-size: 18px; color:#777\">".concat(d.name, "</strong><br>\n            </div>\n            <div style=\"font-size: 15px;margin-top: 10px; border-top: 1px solid #eee; padding-top: 8px;\">\n              <strong>\uD83D\uDCC5 Ann\xE9e:</strong> ").concat(d.year, "<br>\n              <strong>\u2B50 ").concat(successName, ":</strong> ").concat(valeur, " ").concat(unit, "\n            </div>");
   } else {
-    var films = d.count == 1 ? "film" : "films";
+    var films = d.count === 1 ? 'film' : 'films';
     html += "<div style=\"margin-bottom: 8px;\">\n              <strong style=\"font-size: 18px; color:".concat(colorScale(d.category), "\">").concat(value, "</strong><br>\n              <span style=\"color: #666\">").concat(key, "</span>\n            </div>\n            <div style=\"font-size: 15px;margin-top: 10px; border-top: 1px solid #eee; padding-top: 8px;\">\n              <strong>\uD83D\uDCC5 Ann\xE9e:</strong> ").concat(d.year, "<br>\n              <strong>\u2B50 Moyenne:</strong> ").concat(d.average.toFixed(2), "%\n            </div>\n            <div style=\"margin-top: 10px; border-top: 1px solid #eee; padding-top: 8px;\">\n              <strong style=\"font-size: 16px; \n                              font-weight: bold; \n                              display: block; \n                              margin-bottom: 6px;\"> ").concat(d.count, " ").concat(films, " cette ann\xE9e :</strong>\n              <ul style=\"margin: 6px 0; font-size: 15px; padding-left: 18px;\">").concat(movieList, "</ul>\n            </div>");
   }
   html += '</div>';
@@ -36012,13 +36045,20 @@ function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) 
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
+/** Create the legend for the 4th visualization
+ *
+ * @param {Array} data - The data to display in the legend
+ * @param {object} legendDiv - The DOM element to display the legend in
+ * @param {Function} colorScale - The color scale to use for the legend
+ * @returns {void}
+ */
 function createLegend(data, legendDiv, colorScale) {
-  legendDiv.selectAll("*").remove(); //Cleanup
+  legendDiv.selectAll('*').remove();
 
   // Process data to extract overcategories
   var overcategories = {};
   data.forEach(function (d) {
-    var _d$category$split = d.category.split(" : "),
+    var _d$category$split = d.category.split(' : '),
       _d$category$split2 = _slicedToArray(_d$category$split, 2),
       overcat = _d$category$split2[0],
       undercat = _d$category$split2[1];
@@ -36029,9 +36069,10 @@ function createLegend(data, legendDiv, colorScale) {
       undercategory: undercat
     }));
   });
-  var columnWidth = 200; // Width for each overcategory column
-  var itemHeight = 20; // Height for each undercategory item
-  var headerHeight = 30; // Height for overcategory headers
+  var columnWidth = 200;
+  var itemHeight = 20;
+  var headerHeight = 30;
+  var textPadding = 20; // Space between rectangle and text
 
   var numOvercategories = Object.keys(overcategories).length;
   var maxItems = Math.max.apply(Math, _toConsumableArray(Object.values(overcategories).map(function (group) {
@@ -36039,65 +36080,53 @@ function createLegend(data, legendDiv, colorScale) {
   })));
   legendDiv.attr('width', columnWidth * numOvercategories).attr('height', headerHeight + maxItems * itemHeight);
   var xOffset = 0;
-
-  // Create legend groups
   Object.entries(overcategories).forEach(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
       overcat = _ref2[0],
       items = _ref2[1];
-    // Create group for this overcategory
-    var overcatGroup = legendDiv.append("g").attr("transform", "translate(".concat(xOffset, ", 0)"));
-
-    // Add overcategory header
-    overcatGroup.append("text").text(overcat).attr("x", columnWidth / 2).attr("y", headerHeight - 10).attr("text-anchor", "middle").style("font-weight", "bold").style("font-size", "16px").style("fill", "black").style("cursor", "pointer").on("click", hideShowAllUnderlings);
-
-    // Create items for this overcategory
-    var itemGroups = overcatGroup.selectAll(".legend-item").data(items).enter().append("g").attr("class", "legend-item").attr("transform", function (d, i) {
-      return "translate(0, ".concat(headerHeight + i * itemHeight, ")");
+    var overcatGroup = legendDiv.append('g').attr('transform', "translate(".concat(xOffset, ", 0)"));
+    overcatGroup.append('text').text(overcat).attr('x', columnWidth / 2).attr('y', headerHeight - 10).attr('text-anchor', 'middle').style('font-weight', 'bold').style('font-size', '16px').style('fill', 'black').style('cursor', 'pointer').on('click', hideShowAllUnderlings);
+    var itemGroups = overcatGroup.selectAll('.legend-item').data(items).enter().append('g').attr('class', 'legend-item').attr('transform', function (d, i) {
+      return "translate(".concat(columnWidth / 2 - 50, ", ").concat(headerHeight + i * itemHeight, ")");
     });
-
-    // Add rectangles
-    itemGroups.append("rect").attr("width", 12).attr("height", 12).attr("x", 5).attr("y", 5).attr("rx", 3).style("fill", function (d) {
+    itemGroups.append('rect').attr('width', 12).attr('height', 12).attr('x', 0).attr('y', 5).attr('rx', 3).style('fill', function (d) {
       return colorScale(d.category);
-    }).style("stroke", "black");
-
-    // Add text
-    itemGroups.append("text").text(function (d) {
+    }).style('stroke', 'black');
+    itemGroups.append('text').text(function (d) {
       return d.undercategory;
-    }).attr("x", 25).attr("y", 17).style("fill", "black").style("font-weight", "bold").style("font-size", "14px").on("click", hideShowCategory).style("cursor", "pointer");
-    xOffset += columnWidth; // Move to next column
+    }).attr('x', textPadding).attr('y', 17).style('fill', 'black').style('font-weight', 'bold').style('font-size', '14px').on('click', hideShowCategory).style('cursor', 'pointer');
+    xOffset += columnWidth;
   });
 }
 
 /** Hide or show the given element depending of current state
-* @param {MouseEvent} event
-* @param {Object} d
-* @returns {void}
-*/
+ *
+ * @param {MouseEvent} event - The event that triggered the hide or show
+ * @param {object} d - The data to hide or show
+ * @returns {void} - The function does not return anything
+ */
 function hideShowCategory(event, d) {
   var categoryClass = d.category.replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').toLowerCase();
-  var currentOpacity = d3.selectAll(".".concat(categoryClass)).style("opacity");
-  d3.selectAll(".".concat(categoryClass)).transition().style("opacity", currentOpacity == 1 ? 0 : 1).attr("pointer-events", currentOpacity == 1 ? "none" : "visible");
-  d3.select(event.currentTarget).transition().style("font-weight", currentOpacity == 0 ? "bold" : "normal");
+  var currentOpacity = d3.selectAll(".".concat(categoryClass)).style('opacity');
+  d3.selectAll(".".concat(categoryClass)).transition().style('opacity', currentOpacity === '1' ? 0 : 1).attr('pointer-events', currentOpacity === '1' ? 'none' : 'visible');
+  d3.select(event.currentTarget).transition().style('font-weight', currentOpacity === '0' ? 'bold' : 'normal');
 }
 
 /** Hide or show all the elements for an "over"-category
-* @param {MouseEvent} event
-* @param {Object} d
-* @returns {void}
-*/
+ *
+ * @param {MouseEvent} event - The event that triggered the hide or show
+ * @param {object} d - The data to hide or show
+ * @returns {void} - The function does not return anything
+ */
 function hideShowAllUnderlings(event, d) {
-  console.log("Je teste");
   var header = d3.select(event.currentTarget);
-  var currentWeight = header.style("font-weight");
-  header.transition().style("font-weight", currentWeight == "normal" ? "bold" : "normal");
+  var currentWeight = header.style('font-weight');
+  header.transition().style('font-weight', currentWeight === 'normal' ? 'bold' : 'normal');
   var parentGroup = d3.select(event.currentTarget.parentNode);
-  var items = parentGroup.selectAll(".legend-item");
+  var items = parentGroup.selectAll('.legend-item');
   items.each(function (d) {
-    var textElement = d3.select(this).select("text");
-    var itemWeight = textElement.style("font-weight");
-
-    // Si le font-weight est le même que celui de l'en-tête, on appelle hideShowCategory
+    var textElement = d3.select(this).select('text');
+    var itemWeight = textElement.style('font-weight');
     if (itemWeight === currentWeight) {
       hideShowCategory({
         currentTarget: textElement.node()
@@ -36421,6 +36450,7 @@ function getDataBySeason(movies) {
    */
   var getSeason = function getSeason(dateString) {
     if (!dateString || typeof dateString !== 'string') return null;
+    // eslint-disable-next-line no-unused-vars
     var _dateString$split$map = dateString.split('-').map(function (num) {
         return parseInt(num, 10);
       }),
@@ -37261,7 +37291,8 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
 function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
-function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } /**
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } // eslint-disable jsdoc/require-jsdoc
+/**
  * @file This file is the entry-point for the code for the Project of the course INF8808.
  * @author Massimo Donato, Alexandre Dréan, Alexis Hirab, Ianis Kelfoun, Isabelle Poliquin, Julien Segonne
  * @version 1.0.0
@@ -37270,12 +37301,15 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; } /**
 
 document.addEventListener('DOMContentLoaded', function () {
   var chooseMetric = document.querySelector('.choose_metric');
-  var offsetTop = chooseMetric.offsetTop + 650;
+  var teamSection = document.querySelector('#team');
+  var offsetTop = chooseMetric.offsetTop + 400;
   window.addEventListener('scroll', function () {
     if (window.scrollY > offsetTop) {
       chooseMetric.classList.add('fixed');
+      teamSection.classList.add('whenMetricFixed');
     } else {
       chooseMetric.classList.remove('fixed');
+      teamSection.classList.remove('whenMetricFixed');
     }
   });
 });
@@ -37320,6 +37354,10 @@ document.addEventListener('DOMContentLoaded', function () {
       left: 80
     };
     var svgSize1, graphSize1;
+
+    /**
+     *
+     */
     function setSizing1() {
       svgSize1 = {
         width: 1000,
@@ -37359,16 +37397,14 @@ document.addEventListener('DOMContentLoaded', function () {
     viz1Viz.setCircleHoverHandler(g1, tip);
 
     /**
-     * This function builds the graph.
-    * @param {object} g1 The D3 selection of the <g> element containing the circles
-     * @param {object} data The data to be used
-    * @param {number} transitionDuration The duration of the transition while placing the circles
-    * @param {number} year The year to be displayed
-    * @param {*} rScale1 The scale for the circles' radius
-    * @param {*} colorScale1 The scale for the circles' color
-     * @param {*} xScale1 The x scale for the graph
-    * @param {*} yScale1 The y scale for the graph
-    */
+     * @param {d3.Selection<SVGGElement>} g1 - The D3 selection of the <g> element to draw the circles on
+     * @param {Array<object>} data - The data to draw
+     * @param {number} transitionDuration - The duration of the transition
+     * @param {d3.Scale<number, number>} rScale1 - The radius scale
+     * @param {d3.Scale<string, string>} colorScale1 - The color scale
+     * @param {d3.Scale<number, number>} xScale1 - The x scale
+     * @param {d3.Scale<number, number>} yScale1 - The y scale
+     */
     function build1(g1, data, transitionDuration, rScale1, colorScale1, xScale1, yScale1) {
       viz1Viz.drawCircles(g1, data, rScale1, colorScale1);
       viz1Viz.moveCircles(g1, xScale1, yScale1, transitionDuration);
@@ -37377,6 +37413,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* Visualization 2 - Équipe du film */
 
+    /**
+     *
+     */
     function buildViz2() {
       var margin2 = {
         top: 320,
@@ -37387,10 +37426,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var svgWidth = 1000;
       var svgHeight = 650;
       viz2Helper.setCanvasSize(svgWidth, svgHeight);
-      var currentData = null;
       var highlightEntity = null;
       var selectedEntityName = null;
-      var selectedEntityType = null;
       var searchInput = document.getElementById('search-box');
       var collabSelect = document.getElementById('min-collab');
       var maxEntSelect = document.getElementById('max-entities');
@@ -37398,6 +37435,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var tooltip = viz2Tooltip.createTooltip();
       var dropdownContainer = viz2Search.createDropdownContainer();
       var dropdown = dropdownContainer.dropdown;
+
+      /**
+       * @param {string} newEntityName - The name of the new entity to highlight
+       */
       function updateViz() {
         var newEntityName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
         svgViz2.selectAll('*').remove();
@@ -37433,7 +37474,6 @@ document.addEventListener('DOMContentLoaded', function () {
             highlightEntity = _idx !== -1 ? _idx : null;
           }
         }
-        currentData = data;
         if (!data || !data.entities || data.entities.length === 0) {
           viz2Viz.displayNoDataMessage(svgViz2, svgWidth, svgHeight);
           return;
@@ -37491,7 +37531,6 @@ document.addEventListener('DOMContentLoaded', function () {
           collabSelect.value = 2;
           maxEntSelect.value = 20;
           selectedEntityName = null;
-          selectedEntityType = null;
           updateViz();
         });
       }
@@ -37506,23 +37545,24 @@ document.addEventListener('DOMContentLoaded', function () {
     var selectedFilterViz3 = 'genre';
     var intervalLenght = 10;
     var numElemPerStack = 4;
+
+    /**
+     * @param {string} metricViz3 - The metric to use
+     * @param {string} selectedFilterViz3 - The filter to use
+     * @param {number} intervalLenght - The interval length
+     * @param {number} numElemPerStack - The number of elements per stack
+     */
     function buildViz3(metricViz3, selectedFilterViz3, intervalLenght, numElemPerStack) {
       var viz3 = d3.select('.tendance-timeline-svg');
       var legendDiv = d3.select('.legend-tendances');
-
-      // Clear previous content
       viz3.selectAll('.axes').remove();
       viz3.selectAll('.bars').remove();
       legendDiv.selectAll('*').remove();
-
-      // Preprocessing
-      var viz3Data = viz3Process.getDataPerTimeInterval(imdb, intervalLenght, metricViz3); // if metric="rating" and we take the time intervals by 8 years
-      var viz3MarketPerInterval = viz3Process.getMarketPerTimeInterval(viz3Data, selectedFilterViz3); //if selectedfilter = "genre"
-      var viz3MarketPerIntervalSmall = viz3Process.reduceNumberOfLine(viz3MarketPerInterval, numElemPerStack); //only 4 genres per interval
-      var intervalsDates = Object.keys(viz3MarketPerIntervalSmall['intervals']);
+      var viz3Data = viz3Process.getDataPerTimeInterval(imdb, intervalLenght, metricViz3);
+      var viz3MarketPerInterval = viz3Process.getMarketPerTimeInterval(viz3Data, selectedFilterViz3);
+      var viz3MarketPerIntervalSmall = viz3Process.reduceNumberOfLine(viz3MarketPerInterval, numElemPerStack);
+      var intervalsDates = Object.keys(viz3MarketPerIntervalSmall.intervals);
       var stackedData = viz3Process.stackData(viz3MarketPerIntervalSmall);
-
-      // setup graph scales
       var svgSizeViz3 = {
         width: 1000,
         height: 600
@@ -37541,13 +37581,9 @@ document.addEventListener('DOMContentLoaded', function () {
       var viz3xScale = viz3Scales.setXScale(graphSizeViz3.width, intervalsDates);
       var viz3yScaleBoxOffice = viz3Scales.setYScale(graphSizeViz3.height);
       var axesViz3 = viz3.append('g').attr('class', 'axes').attr('transform', "translate(".concat(marginViz3.left, ",").concat(marginViz3.top, ")"));
-
-      // Drawing of the axes
       viz3Helper.appendAxes(axesViz3);
       viz3Helper.drawXAxis(viz3xScale, graphSizeViz3.height, intervalsDates);
       viz3Helper.drawYAxis(viz3yScaleBoxOffice);
-
-      // Adding labels to the axes
       viz3Helper.appendGraphLabels(axesViz3);
       viz3Helper.positionLabels(axesViz3, graphSizeViz3.width, graphSizeViz3.height);
       var customColors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf', '#393b79', '#637939', '#8c6d31', '#843c39', '#7b4173', '#aec7e8', '#ffbb78', '#98df8a', '#ff9896', '#c5b0d5', '#c49c94', '#f7b6d2', '#c7c7c7', '#dbdb8d', '#9edae5'];
@@ -37559,13 +37595,10 @@ document.addEventListener('DOMContentLoaded', function () {
       });
       g3.call(tip3);
       var series = d3.stack().keys(viz3MarketPerIntervalSmall.presentCategory)(stackedData);
-
-      // Create a base group in which we will draw the bars
       var barsGroup = viz3.append('g').attr('class', 'bars').attr('transform', "translate(".concat(marginViz3.left, ",").concat(marginViz3.top, ")"));
       barsGroup.selectAll('g.layer').data(series).enter().append('g').attr('class', 'layer').attr('fill', function (d) {
         return colorScale(d.key);
       }).selectAll('rect').data(function (d) {
-        // We add the category to each element
         return d.map(function (item) {
           return _objectSpread(_objectSpread({}, item), {}, {
             category: d.key
@@ -37578,19 +37611,13 @@ document.addEventListener('DOMContentLoaded', function () {
       }).attr('height', function (d) {
         return viz3yScaleBoxOffice(d[0]) - viz3yScaleBoxOffice(d[1]);
       }).attr('width', viz3xScale.bandwidth());
-
-      // Hover over a rectangle
       viz3Tooltip.setRectHoverHandler(viz3, tip3);
-
-      // Reading example
       var randomRectData = viz3Example.selectRandomRectangle();
       var phraseEx = viz3Example.examplePhrase(randomRectData, colorScale, metricViz3);
       var exampleContainerViz3 = document.querySelector('.exampleViz3');
       exampleContainerViz3.innerHTML = phraseEx;
     }
     buildViz3(metricViz3, selectedFilterViz3, intervalLenght, numElemPerStack);
-
-    // Manage the modifications of an option:
     var selectorMetric = document.getElementById('metric-select');
     selectorMetric.addEventListener('change', function () {
       buildViz3(selectorMetric.value, selectorCategory.value, parseInt(sliderMovieLenght.value, 10), parseInt(sliderMaxLine.value, 10));
@@ -37612,8 +37639,6 @@ document.addEventListener('DOMContentLoaded', function () {
       buildViz3(selectorMetric.value, selectorCategory.value, parseInt(sliderMovieLenght.value, 10), parseInt(sliderMaxLine.value, 10));
     });
 
-    /* Visualization 4 - Impact des films */
-
     /* Visualisation 4 - Impact des films */
 
     var margin4 = {
@@ -37623,6 +37648,10 @@ document.addEventListener('DOMContentLoaded', function () {
       left: 100
     };
     var svgSize4, graphSize4;
+
+    /**
+     *
+     */
     function setSizing() {
       svgSize4 = {
         width: 1000,
@@ -37636,20 +37665,24 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     setSizing();
     var title;
-    var ListOfFields = ["directors", "genre", "casts", "writers"];
+    var ListOfFields = ['directors', 'genre', 'casts', 'writers'];
     var viz4FixedImdb = viz4Process.addNumberOfNominations(imdb);
     var viz4xScale;
     var viz4yScaleBoxOffice;
     var viz4ColorScale;
-    var viz4 = d3.select(".film-impact-svg");
+    var viz4 = d3.select('.film-impact-svg');
     var viz4legendDiv = d3.select('.legendsvg');
     viz4legendDiv.attr('width', 0).attr('height', 0);
     buildViz4(viz4FixedImdb);
+
+    /**
+     * @param {Array<object>} viz4data - The data to draw
+     */
     function buildViz4(viz4data) {
       viz4xScale = viz4Scales.setXScale(graphSize4.width, viz4data);
       viz4yScaleBoxOffice = viz4Scales.setEmptyYScale(graphSize4.height);
-      var axes = viz4.append("g").attr("class", "axes").attr("transform", 'translate(' + margin4.left + ', ' + margin4.top + ')');
-      var courbes = viz4.append("g").attr("class", "courbes").attr("transform", 'translate(' + margin4.left + ', ' + margin4.top + ')');
+      var axes = viz4.append('g').attr('class', 'axes').attr('transform', 'translate(' + margin4.left + ', ' + margin4.top + ')');
+      viz4.append('g').attr('class', 'courbes').attr('transform', 'translate(' + margin4.left + ', ' + margin4.top + ')');
       viz4Helper.appendAxes(axes);
       viz4Helper.appendGraphLabels(axes);
       viz4Helper.positionLabels(axes, graphSize4.width, graphSize4.height);
@@ -37657,10 +37690,15 @@ document.addEventListener('DOMContentLoaded', function () {
       viz4Helper.drawYAxis(viz4yScaleBoxOffice);
       viz4Search.initFilmList(viz4data);
     }
+
+    /**
+     * @param {Array<object>} viz4data - The data to draw
+     * @param {string} viz4mesureSucces - The metric to use
+     */
     function refreshViz4(viz4data, viz4mesureSucces) {
       var dataToShow = viz4Process.indexData(title, viz4data, viz4mesureSucces);
       var test = viz4Process.generateDataToDisplay(title, dataToShow, ListOfFields, 2);
-      var viz4yScaleFlexible = viz4Scales.setYScaleMesureSucces(graphSize4.height, test, "average");
+      var viz4yScaleFlexible = viz4Scales.setYScaleMesureSucces(graphSize4.height, test, 'average');
       viz4Helper.drawYAxis(viz4yScaleFlexible);
       viz4Helper.resetYLabel(viz4, viz4mesureSucces);
       viz4ColorScale = viz4Scales.setColorScale(test);
@@ -37670,8 +37708,8 @@ document.addEventListener('DOMContentLoaded', function () {
       var tip4 = (0, _d3Tip.default)().attr('class', 'viz4-tip').html(function (d) {
         return viz4Tooltip.getContents(d, viz4mesureSucces, viz4ColorScale);
       });
-      viz4.select(".courbes").call(tip4);
-      viz4Tooltip.setCircleHoverHandler(viz4.select(".courbes"), tip4);
+      viz4.select('.courbes').call(tip4);
+      viz4Tooltip.setCircleHoverHandler(viz4.select('.courbes'), tip4);
     }
     selectorMetric.addEventListener('change', function () {
       refreshViz4(viz4FixedImdb, selectorMetric.value);
@@ -37713,7 +37751,9 @@ document.addEventListener('DOMContentLoaded', function () {
       updateVisualization(selectedSeason);
     });
 
-    // eslint-disable-next-line jsdoc/require-jsdoc
+    /**
+     * @param {string} season - The season to update the visualization for
+     */
     function updateVisualization(season) {
       g5.selectAll('*').remove();
       var data = viz5Helper.getSeasonData(season, season === 'every-season' ? taglineWordData : viz5data);
@@ -37749,7 +37789,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52223" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56573" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

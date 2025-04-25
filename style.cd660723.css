@@ -122,6 +122,11 @@ section {
   scroll-margin-top: 65px;
 }
 
+.whenMetricFixed {
+  margin-bottom: 230px;
+}
+
+
 h2 {
   margin-bottom: 10px;
   border-bottom: 2px solid #eee;
